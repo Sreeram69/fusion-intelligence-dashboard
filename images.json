@@ -1,0 +1,51 @@
+[
+  {
+    "type": "IMINT",
+    "title": "Road Accident in Delhi",
+    "description": "Multiple vehicles collided causing heavy traffic and injuries reported.",
+    "lat": 28.6139,
+    "lng": 77.2090,
+    "image": [
+      "/uploads/accident1.png",
+      "/uploads/accident2.png"
+    ]
+  },
+  {
+    "type": "OSINT",
+    "title": "Protest in Punjab",
+    "description": "Large protest gathering reported in Phagwara region.",
+    "lat": 31.224,
+    "lng": 75.7708,
+    "image": [
+      "/uploads/protest1.png"
+    ]
+  },
+  {
+    "type": "OSINT",
+    "title": "Flood Alert in Himachal",
+    "description": "Heavy rainfall causing flood-like situation in Shimla.",
+    "lat": 31.1048,
+    "lng": 77.1734,
+    "image": [
+      "/uploads/flood1.jpeg",
+      "/uploads/flood2.jpeg"
+    ]
+  },
+  {
+    "type": "OSINT",
+    "title": "Fire Incident in Mumbai",
+    "description": "Major fire broke out in commercial building.",
+    "lat": 19.076,
+    "lng": 72.8777,
+    "image": []
+  },
+  {
+    "type": "OSINT",
+    "title": "Security Alert in Bangalore",
+    "description": "Suspicious activity detected near tech park.",
+    "lat": 12.9716,
+    "lng": 77.5946,
+    "image": [
+    ]
+  }
+]

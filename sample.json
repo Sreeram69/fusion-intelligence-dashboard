@@ -1,0 +1,212 @@
+[
+  {
+    "type": "OSINT",
+    "title": "Industrial Explosion",
+    "description": "Boiler explosion at Vedanta power plant in Chhattisgarh killed over 15 workers and injured many",
+    "lat": 22.0213,
+    "lng": 82.0110
+  },
+  {
+    "type": "OSINT",
+    "title": "Road Accidents Cluster",
+    "description": "Multiple road accidents in Chhattisgarh killed 3 people and injured several others",
+    "lat": 21.2787,
+    "lng": 81.8661
+  },
+  {
+    "type": "OSINT",
+    "title": "Bus Collision",
+    "description": "Passenger bus collided with parked truck in Surajpur leading to multiple injuries and one death",
+    "lat": 23.2200,
+    "lng": 82.8675
+  },
+  {
+    "type": "OSINT",
+    "title": "Vehicle Fire Accident",
+    "description": "Car collided with bus in Karnataka and caught fire killing multiple passengers including children",
+    "lat": 15.3173,
+    "lng": 75.7139
+  },
+  {
+    "type": "OSINT",
+    "title": "Factory Explosion",
+    "description": "Fireworks factory explosion in Andhra Pradesh killed more than 20 workers",
+    "lat": 16.9891,
+    "lng": 82.2475
+  },
+  {
+    "type": "OSINT",
+    "title": "Stray Animal Accident",
+    "description": "Woman died after falling from scooter due to bulls fighting on road in Bhopal",
+    "lat": 23.2599,
+    "lng": 77.4126
+  },
+  {
+    "type": "OSINT",
+    "title": "Airport Incident",
+    "description": "IAF fighter aircraft crash landing disrupted operations at Pune airport",
+    "lat": 18.5822,
+    "lng": 73.9197
+  },
+  {
+    "type": "OSINT",
+    "title": "Plane Crash",
+    "description": "Learjet crashed in Baramati Maharashtra killing all 5 onboard including political leader",
+    "lat": 18.1510,
+    "lng": 74.5770
+  },
+  {
+    "type": "OSINT",
+    "title": "Road Safety Incident",
+    "description": "Drunk tanker driving incidents in Pune caused fatalities and raised safety concerns",
+    "lat": 18.5204,
+    "lng": 73.8567
+  },
+  {
+    "type": "OSINT",
+    "title": "Festival Accidents",
+    "description": "Holi celebrations in Delhi saw multiple road accidents and fatalities due to drunk driving",
+    "lat": 28.6139,
+    "lng": 77.2090
+  },
+  {
+    "type": "OSINT",
+    "title": "Infrastructure Accident",
+    "description": "Unsafe road construction in Dehradun led to multiple accidents and injuries",
+    "lat": 30.3165,
+    "lng": 78.0322
+  },
+  {
+    "type": "OSINT",
+    "title": "Fairground Accident",
+    "description": "Swing ride collapse at Surajkund Mela in Haryana injured several visitors",
+    "lat": 28.4520,
+    "lng": 77.2850
+  },
+  {
+    "type": "OSINT",
+    "title": "Military Crash",
+    "description": "Indian Air Force Sukhoi-30 crashed in Assam during training killing two pilots",
+    "lat": 26.2006,
+    "lng": 92.9376
+  },
+  {
+    "type": "OSINT",
+    "title": "Aircraft Incident",
+    "description": "Tejas fighter jet incident during training due to technical failure",
+    "lat": 23.7337,
+    "lng": 68.7398
+  },
+  {
+    "type": "HUMINT",
+    "title": "Communal Clash",
+    "description": "Protests and clashes erupted in Kotdwar Uttarakhand over shop naming dispute",
+    "lat": 29.7465,
+    "lng": 78.5225
+  },
+  {
+    "type": "HUMINT",
+    "title": "Gang Activity",
+    "description": "Multi-state gang crackdown operation resulted in arrests across Delhi, Haryana and Punjab",
+    "lat": 28.7041,
+    "lng": 77.1025
+  },
+  {
+    "type": "HUMINT",
+    "title": "Local Dispute Violence",
+    "description": "Family dispute escalated into fatal stabbing incident in South Delhi area",
+    "lat": 28.5245,
+    "lng": 77.2573
+  },
+  {
+    "type": "HUMINT",
+    "title": "Public Unrest",
+    "description": "Villagers blocked roads after fatal accident demanding compensation in Chhattisgarh",
+    "lat": 21.9000,
+    "lng": 83.4000
+  },
+  {
+    "type": "HUMINT",
+    "title": "Suspicious Gathering",
+    "description": "Reports of suspicious late-night meetings in Punjab border areas under observation",
+    "lat": 31.1471,
+    "lng": 75.3412
+  },
+  {
+    "type": "HUMINT",
+    "title": "Mob Violence",
+    "description": "Mob assault reported in Uttar Pradesh following local dispute escalation",
+    "lat": 26.8467,
+    "lng": 80.9462
+  },
+  {
+    "type": "HUMINT",
+    "title": "Political Clash",
+    "description": "Tensions between political groups turned violent during rally in West Bengal",
+    "lat": 22.5726,
+    "lng": 88.3639
+  },
+  {
+    "type": "HUMINT",
+    "title": "Communal Tension",
+    "description": "Minor clashes reported between communities during festival in Hyderabad",
+    "lat": 17.3850,
+    "lng": 78.4867
+  },
+  {
+    "type": "HUMINT",
+    "title": "Campus Violence",
+    "description": "Student groups clashed during protest in university campus in Chennai",
+    "lat": 13.0827,
+    "lng": 80.2707
+  },
+  {
+    "type": "HUMINT",
+    "title": "Illegal Activity Alert",
+    "description": "Suspicious arms movement reported in Rajasthan border districts",
+    "lat": 26.9124,
+    "lng": 75.7873
+  },
+  {
+    "type": "HUMINT",
+    "title": "Public Fight",
+    "description": "Street fight between groups escalated into injuries in Mumbai suburban area",
+    "lat": 19.0760,
+    "lng": 72.8777
+  },
+  {
+    "type": "OSINT",
+    "title": "Highway Accident",
+    "description": "Truck and car collision on national highway in Gujarat resulted in multiple casualties",
+    "lat": 23.0225,
+    "lng": 72.5714
+  },
+  {
+    "type": "OSINT",
+    "title": "Train Incident",
+    "description": "Minor derailment incident reported in Bihar causing injuries to passengers",
+    "lat": 25.5941,
+    "lng": 85.1376
+  },
+  {
+    "type": "OSINT",
+    "title": "Bridge Accident",
+    "description": "Vehicle fell from damaged bridge in Odisha leading to fatalities",
+    "lat": 20.2961,
+    "lng": 85.8245
+  },
+  {
+    "type": "OSINT",
+    "title": "Construction Accident",
+    "description": "Building collapse during construction in Bengaluru injured workers",
+    "lat": 12.9716,
+    "lng": 77.5946
+  },
+  {
+    "type": "OSINT",
+    "title": "Flood Related Incident",
+    "description": "Vehicle swept away in flash flood in Kerala causing casualties",
+    "lat": 10.8505,
+    "lng": 76.2711
+  }
+]
