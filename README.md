@@ -68,7 +68,6 @@ fusion-intelligence-dashboard/
 
 ### 1️⃣ Clone Repository
 
-git clone https://github.com/your-username/fusion-intelligence-dashboard.git
 cd fusion-intelligence-dashboard
 
 ---
@@ -87,13 +86,6 @@ cd frontend
 npm install
 npm start
 
----
-
-## 🔑 Environment Setup
-
-Update your API key in `server.js`:
-
-const API_KEY = "YOUR_OPENCAGE_API_KEY";
 
 ---
 
