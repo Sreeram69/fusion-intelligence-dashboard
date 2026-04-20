@@ -1,4 +1,4 @@
-# fusion-intelligence-dashboard# 🧠 Fusion Intelligence Dashboard
+🧠 Fusion Intelligence Dashboard
 
 A real-time intelligence monitoring system that aggregates, analyzes, and visualizes multi-source data (OSINT, HUMINT, IMINT) on an interactive map with alerts, clustering, and translation support.
 
