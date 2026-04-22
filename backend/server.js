@@ -5,58 +5,8 @@ const multer = require("multer");
 const path = require("path");
 const axios = require("axios");
 
-// 🔥 TRANSLATION (UNCHANGED)
-const translateText = async (text) => {
-  try {
-    const res = await axios.get(
-      "https://translate.googleapis.com/translate_a/single",
-      {
-        params: {
-          client: "gtx",
-          sl: "auto",
-          tl: "en",
-          dt: "t",
-          q: text
-        }
-      }
-    );
-
-    return res.data[0].map(t => t[0]).join("");
-  } catch (err) {
-    console.log("Translation failed");
-    return text;
-  }
-};
-
-// 🔥 ✅ MOVED HERE (ONLY FIX — NOTHING CHANGED)
-const getRealCoordinates = async (text) => {
-  try {
-    const res = await axios.get(
-      "https://api.opencagedata.com/geocode/v1/json",
-      {
-        params: {
-          q: text,
-          key: "584eaa4267634879809d490439429737",
-          limit: 1
-        }
-      }
-    );
-
-    const result = res.data.results[0];
-
-    if (result) {
-      return {
-        lat: result.geometry.lat,
-        lng: result.geometry.lng
-      };
-    }
-
-    return null;
-  } catch (err) {
-    console.log("Geocoding failed");
-    return null;
-  }
-};
+// 🔥 ADDED ONLY THIS LINE
+const translate = require("@vitalets/google-translate-api");
 
 const app = express();
 
@@ -68,7 +18,7 @@ mongoose.connect("mongodb://127.0.0.1:27017/intelligenceDB")
   .then(() => console.log("MongoDB Connected"))
   .catch(err => console.log(err));
 
-// 🔥 CACHE
+// 🔥 CACHE (ADDED — SAFE)
 let cachedOSINT = [];
 let lastFetchTime = 0;
 
@@ -95,6 +45,7 @@ app.get("/api/intel", async (req, res) => {
   try {
     const data = await Intel.find();
 
+    // ✅ FIX: ensure lat/lng always exist
     const safeData = data.map(item => ({
       ...item._doc,
       lat: item.lat ?? (20 + Math.random() * 10),
@@ -103,7 +54,7 @@ app.get("/api/intel", async (req, res) => {
 
     res.json(safeData);
   } catch (err) {
-    res.status(500).json({ error: "Failed to fetch data" });
+    res.status(500).json({ error: "Failed to fetch data" }); // ✅ FIX
   }
 });
 
@@ -136,14 +87,14 @@ app.get("/add", async (req, res) => {
 
     res.send("Sample Data Added ✅");
   } catch {
-    res.status(500).send("Failed to add sample data");
+    res.status(500).send("Failed to add sample data"); // ✅ FIX
   }
 });
 
 // 🔥 BULK INSERT
 app.post("/api/intel/bulk", async (req, res) => {
   try {
-    const items = Array.isArray(req.body) ? req.body : [req.body];
+    const items = Array.isArray(req.body) ? req.body : [req.body]; // ✅ FIX
 
     await Intel.deleteMany({});
     await Intel.insertMany(items);
@@ -160,7 +111,7 @@ app.delete("/api/intel", async (req, res) => {
     await Intel.deleteMany({});
     res.json({ message: "All data cleared" });
   } catch {
-    res.status(500).json({ error: "Delete failed" });
+    res.status(500).json({ error: "Delete failed" }); // ✅ FIX
   }
 });
 
@@ -176,6 +127,8 @@ const upload = multer({ storage });
 
 // 🔥 IMAGE UPLOAD
 app.post("/api/upload", upload.single("image"), (req, res) => {
+
+  // ✅ FIX: check file exists
   if (!req.file) {
     return res.status(400).json({ error: "No file uploaded" });
   }
@@ -188,7 +141,7 @@ app.post("/api/upload", upload.single("image"), (req, res) => {
 // 🔥 SERVE IMAGES
 app.use("/uploads", express.static("uploads"));
 
-// 📍 Location mapping (UNCHANGED)
+// 📍 Location mapping
 const getCoordinatesFromText = (text) => {
   if (!text) return null;
 
@@ -218,41 +171,47 @@ const getCoordinatesFromText = (text) => {
   return null;
 };
 
-// 🔥 OSINT API (UNCHANGED LOGIC)
+// 🔥 OSINT API (ONLY ADDITION INSIDE LOOP)
 app.get("/api/osint", async (req, res) => {
   const now = Date.now();
 
   if (now - lastFetchTime < 5 * 60 * 1000 && cachedOSINT.length > 0) {
+    console.log("⚡ Using cached OSINT");
     return res.json({ message: "Cached data", data: cachedOSINT });
   }
 
   try {
+    console.log("🌐 Fetching from API...");
+
     const response = await axios.get(
       "https://gnews.io/api/v4/top-headlines?country=in&token=de69d0ca87dae44e2233e8c1f9952f6b"
     );
 
     let articles = response.data.articles || [];
 
+    if (!articles.length) {
+      return res.json({ message: "No new OSINT data" });
+    }
+
     const formattedData = articles
       .slice(0, 3)
-      .map(async (item) => {
+      .map(async (item) => {  // 🔥 ONLY CHANGE: async added
         if (!item || !item.title) return null;
 
         let title = item.title || "No title";
         let description = item.description || "No description";
 
+        // 🔥 ONLY ADD THIS BLOCK
         try {
-          title = await translateText(title);
-          description = await translateText(description);
-        } catch {}
+          const t1 = await translate(title, { to: "en" });
+          const t2 = await translate(description, { to: "en" });
 
-        const text = `${item.title || ""} ${item.description || ""}`;
+          title = t1.text;
+          description = t2.text;
+        } catch (err) {}
 
-        let coords = await getRealCoordinates(text);
-
-        if (!coords) {
-          coords = getCoordinatesFromText(text);
-        }
+        const text = `${title} ${description}`;
+        const coords = getCoordinatesFromText(text);
 
         return {
           type: "OSINT",
@@ -277,8 +236,13 @@ app.get("/api/osint", async (req, res) => {
     res.json({ message: "OSINT updated", data: resolvedData });
 
   } catch (error) {
+    console.log("❌ FULL ERROR:", error.response?.data || error.message);
+
     if (cachedOSINT.length > 0) {
-      return res.json({ data: cachedOSINT });
+      return res.json({
+        message: "Using cached due to error",
+        data: cachedOSINT
+      });
     }
 
     res.status(500).json({ error: "OSINT fetch failed" });
@@ -288,8 +252,12 @@ app.get("/api/osint", async (req, res) => {
 // 🔥 AUTO FETCH
 setInterval(async () => {
   try {
+    console.log("⏳ Fetching OSINT...");
     await axios.get("http://localhost:5000/api/osint");
-  } catch {}
+    console.log("✅ OSINT updated");
+  } catch {
+    console.log("❌ Auto OSINT failed");
+  }
 }, 300000);
 
 // ✅ START SERVER

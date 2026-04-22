@@ -44,7 +44,7 @@ const getMarkerIcon = (type) => {
   if (type === "HUMINT") return blueMarker;
   if (type === "IMINT") return greenMarker;
 
-  return redMarker; // ✅ FIX: fallback to avoid crash
+  return redMarker;
 };
 
 /////////////////////////////////////////////////////
@@ -57,8 +57,7 @@ const MapController = ({ selectedItem }) => {
     if (selectedItem) {
       const actualItem = selectedItem.items ? selectedItem.items[0] : selectedItem;
 
-      // ✅ FIX: prevent crash if lat/lng missing
-      if (!actualItem.lat || !actualItem.lng) return;
+      if (actualItem.lat == null || actualItem.lng == null) return;
 
       const { lat, lng } = actualItem;
 
@@ -79,19 +78,19 @@ const HeatmapLayer = ({ data, selectedItem }) => {
   const heatRef = useRef(null);
 
   useEffect(() => {
-    if (!selectedItem) return;
 
-    const actualItem = selectedItem.items ? selectedItem.items[0] : selectedItem;
+    // ✅ FIXED HERE
+    if (!data || data.length === 0) return;
 
-    // ✅ FIX: prevent crash
-    if (!actualItem.lat || !actualItem.lng) return;
+    const actualItem = selectedItem?.items ? selectedItem.items[0] : selectedItem;
+
+    if (!actualItem || actualItem.lat == null || actualItem.lng == null) return;
 
     const { lat, lng } = actualItem;
 
     const nearbyPoints = data
       .flatMap((item) => (item.items ? item.items : [item]))
       .filter((item) => {
-        // ✅ FIX: safe check
         if (item.lat == null || item.lng == null) return false;
 
         const distance =
@@ -109,6 +108,7 @@ const HeatmapLayer = ({ data, selectedItem }) => {
 
     if (heatRef.current) {
       map.removeLayer(heatRef.current);
+      heatRef.current = null;
     }
 
     const heatLayer = window.L.heatLayer(heatData, {
@@ -152,25 +152,16 @@ const MapView = ({ selectedItem, data }) => {
         {/* 🔹 Markers */}
         {data.map((item, index) => {
 
-          // ✅ FIX: prevent crash if lat/lng missing
           if (item.lat == null || item.lng == null) return null;
 
           const mainItem = item.items ? item.items[0] : item;
 
           return (
             <Marker
-  key={index}
-  position={[item.lat, item.lng]}
-  icon={getMarkerIcon(mainItem.type)}
-  eventHandlers={{
-    mouseover: (e) => {
-      e.target.openPopup();
-    },
-    mouseout: (e) => {
-      e.target.closePopup();
-    },
-  }}
->
+              key={index}
+              position={[item.lat, item.lng]}
+              icon={getMarkerIcon(mainItem.type)}
+            >
               <Tooltip direction="top" offset={[0, -10]} opacity={1}>
                 <div style={{ minWidth: "200px" }}>
                   {item.items ? (
@@ -185,8 +176,7 @@ const MapView = ({ selectedItem, data }) => {
                                 ? i.image[0]
                                 : `http://localhost:5000${i.image[0]}`
                             }
-                              alt="intel"   // ✅ ADD THIS
-
+                            alt="intel"
                             style={{
                               width: "150px",
                               marginTop: "5px",
@@ -218,12 +208,11 @@ const MapView = ({ selectedItem, data }) => {
                         {i.image && i.image.length > 0 && i.image[0] && (
                           <img
                             src={
-
                               i.image[0]?.startsWith("http")
                                 ? i.image[0]
                                 : `http://localhost:5000${i.image[0]}`
                             }
-                                                            alt="intel"   // ✅ ADD THIS
+                            alt="intel"
                             style={{ width: "120px", margin: "5px", borderRadius: "6px" }}
                           />
                         )}
